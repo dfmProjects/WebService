@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light">
+
+
+    <Button
+        android:id="@+id/btnRequest"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="350dp"
+        android:textSize="13sp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:background="@drawable/button"
+        android:text="Consulta 1"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/btnRequest2"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="350dp"
+        android:textSize="13sp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:background="@drawable/button"
+        android:text="Consulta2"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/txtTexto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="120dp" />
+
+
+</RelativeLayout>
