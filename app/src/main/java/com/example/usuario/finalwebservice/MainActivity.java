@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
     //URL web Service de la red (dfmapl4)- solo funciona en el emulador no smartphone
     //private String server_url = "http://192.168.100.87:8061/wsdl/cliente.php";
-    private String server_url = "http://web3.disfrimur.com:8060/wsdl/REST/service.php";
+    //private String server_url = "http://web3.disfrimur.com:8060/wsdl/REST/service.php";
+    private String server_url = "http://web3.disfrimur.com:8062/wsdl/REST/service.php";
 
     Button btnRequest;
     Button btnRequest2;
