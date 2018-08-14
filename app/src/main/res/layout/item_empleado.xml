@@ -27,6 +27,15 @@
         android:layout_toRightOf="@+id/imageView"
         android:layout_toEndOf="@+id/imageView" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Texto Frase"
+        android:id="@+id/estado"
+        android:layout_below="@+id/apellidos"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView" />
+
 
     <ImageView
         android:layout_width="wrap_content"

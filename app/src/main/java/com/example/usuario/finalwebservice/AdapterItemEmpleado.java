@@ -71,6 +71,9 @@ public class AdapterItemEmpleado extends BaseAdapter {
         TextView description = (TextView) v.findViewById(R.id.apellidos);
         description.setText(dir.getApellidos());
 
+        TextView estado = (TextView) v.findViewById(R.id.estado);
+        estado.setText(dir.getEstado());
+
         ImageView imagen = (ImageView) v.findViewById(R.id.imageView);
         imagen.setImageDrawable(dir.getImagen());
 

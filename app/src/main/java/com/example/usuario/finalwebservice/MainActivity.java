@@ -1,14 +1,20 @@
 package com.example.usuario.finalwebservice;
 
-import android.app.DownloadManager;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -27,7 +33,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,8 +47,15 @@ public class MainActivity extends AppCompatActivity {
     private String server_url = "http://web3.disfrimur.com:8060/wsdl/REST/service.php";
 
     Button btnRequest;
+    Button btnRequest2;
     TextView texto;
     RequestQueue requestQueue;
+
+    private Toolbar appbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navView;
+
+
 
     private static final String TAG = MainActivity.class.getName();
 
@@ -49,13 +64,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        //ListView lv = (ListView) findViewById(R.id.listView);
-        //AdapterItemEmpleado adapter = new AdapterItemEmpleado(this, empleado);
-        //lv.setAdapter(adapter);
-
-
         btnRequest = (Button) findViewById(R.id.btnRequest);
+        btnRequest2 = (Button) findViewById(R.id.btnRequest2);
         texto = (TextView) findViewById(R.id.txtTexto);
         Cache cache = new DiskBasedCache(getCacheDir(),1024*1024);
         Network network = new BasicNetwork(new HurlStack());
@@ -65,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
         btnRequest.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View v){
-
-
                 //Add params
                 server_url = server_url + "?NumModelo=209";
 
@@ -74,21 +82,21 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
 
-                        Log.i("Service", server_url);
+                    Log.i("Service", server_url);
 
-                        for (int i = 0;i < response.length(); i++) {
-                            JSONObject jsonObject = null;
+                    for (int i = 0;i < response.length(); i++) {
+                        JSONObject jsonObject = null;
 
-                            try {
-                                jsonObject = response.getJSONObject(i);
-                                texto.setText("Denominacion: " + jsonObject.getString("Denominacion").toString());
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Log.i("Error al parsear JSON: ", e.getMessage());
-                            }
-
+                        try {
+                            jsonObject = response.getJSONObject(i);
+                            texto.setText("Denominacion: " + jsonObject.getString("Denominacion").toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.i("Error al parsear JSON: ", e.getMessage());
                         }
-                        Toast.makeText(getApplicationContext(),"Response :" + response.toString(), Toast.LENGTH_LONG).show();//display the response on screen
+
+                    }
+                    Toast.makeText(getApplicationContext(),"Response :" + response.toString(), Toast.LENGTH_LONG).show();//display the response on screen
                         //requestQueue.stop();
                     }
                 }, new Response.ErrorListener() {
@@ -101,6 +109,60 @@ public class MainActivity extends AppCompatActivity {
                 requestQueue.add(stringRequest);
             }
         });
+
+        btnRequest2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick (View v) {
+
+                Intent lista = new Intent(getApplicationContext(), ListaEmpleados.class);
+                startActivity(lista);
+
+            }
+
+        });
+
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        navView = (NavigationView)findViewById(R.id.navview);
+
+        navView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                        boolean fragmentTransaction = false;
+                        Fragment fragment = null;
+
+                        switch (menuItem.getItemId()) {
+                            case R.id.menu_seccion_1:
+                                fragment = new Fragment1();
+                                fragmentTransaction = true;
+                                break;
+
+                            case R.id.menu_opcion_1:
+                                Log.i("NavigationView", "Pulsada opción 1");
+                                break;
+                            case R.id.menu_opcion_2:
+                                Log.i("NavigationView", "Pulsada opción 2");
+                                break;
+                        }
+
+                        if(fragmentTransaction) {
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.content_frame, fragment)
+                                    .commit();
+
+                            menuItem.setChecked(true);
+                            getSupportActionBar().setTitle(menuItem.getTitle());
+                        }
+
+                        drawerLayout.closeDrawers();
+
+                        return true;
+                    }
+                });
+
+
     }
 
 }
