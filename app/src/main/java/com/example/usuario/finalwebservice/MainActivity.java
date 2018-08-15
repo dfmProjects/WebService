@@ -1,7 +1,7 @@
 package com.example.usuario.finalwebservice;
 
+
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -26,16 +25,11 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -56,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navView;
 
-
-
     private static final String TAG = MainActivity.class.getName();
 
     @Override
@@ -72,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         Network network = new BasicNetwork(new HurlStack());
         requestQueue = new RequestQueue(cache,network);
         requestQueue.start();
+
 
         btnRequest.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -141,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
                                 break;
 
                             case R.id.menu_opcion_1:
+                                Intent seccion2 = new Intent(getApplicationContext(), SeccionDos.class);
+                                startActivity(seccion2);
                                 Log.i("NavigationView", "Pulsada opción 1");
                                 break;
                             case R.id.menu_opcion_2:
@@ -150,11 +145,15 @@ public class MainActivity extends AppCompatActivity {
 
                         if(fragmentTransaction) {
                             getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.content_frame, fragment)
+                                    .replace(R.id.drawer_layout, fragment)
                                     .commit();
 
+                            Log.i("Fragment", "Lanzado");
+
+
+
                             menuItem.setChecked(true);
-                            getSupportActionBar().setTitle(menuItem.getTitle());
+                            //getSupportActionBar().setTitle(menuItem.getTitle());
                         }
 
                         drawerLayout.closeDrawers();
@@ -164,6 +163,12 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        finish();
     }
 
 }

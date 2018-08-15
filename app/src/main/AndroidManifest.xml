@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListaEmpleados"></activity>
+        <activity android:name=".ListaEmpleados" />
+        <activity android:name=".SeccionDos"></activity>
     </application>
 
 </manifest>
